@@ -1,0 +1,28 @@
+#!user/bin/bash
+#My Little Debugger
+# Driver script: concatenates the preamble and target script, then executes new one
+echo 'Tiny De Bug V 1.0'
+
+
+_dbname=${0##*/}
+
+if (($# < 1 )); then
+    echo "$_dbname: Usage: $_dbname filename" >&2
+    exit 1
+fi
+
+_guineapig=$1
+
+if ((! -r $1 )); then
+    echo "$_dbname: Cannot read file '$_guineapig'."  >&2
+    exit 1
+fi
+
+shift
+
+_tmpdir=/tmp
+_libdir=.
+_debugfile=$_tmpdir/bashdb.$$ #temp file for script being debugged
+cat $_libdir/bashdb.pre $_guineapig > $_debugfile
+exec bash $_debugfile $_guineapig $_tmpdir $_libdir "$@"
+
