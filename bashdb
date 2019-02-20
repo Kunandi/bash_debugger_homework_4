@@ -1,4 +1,4 @@
-#!user/bin/bash
+
 #My Little Debugger
 # Driver script: concatenates the preamble and target script, then executes new one
 echo 'Tiny De Bug V 1.0'
